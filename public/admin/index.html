@@ -4,8 +4,25 @@
     <meta charset="UTF-8" />
     <title>Decap CMS</title>
   </head>
+  <!-- Netlify Identity Widget -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+    window.netlifyIdentity.init();
+  }
+</script>
   <body>
     <!-- Optional: loader or fallback -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <div style="text-align: center; margin-top: 1rem;">
+  <button onclick="netlifyIdentity.open()">Login / Forgot Password</button>
+</div>
   </body>
 </html>
