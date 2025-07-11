@@ -1,0 +1,33 @@
+---
+// Layout.astro
+import "../styles/global.css";
+---
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website Gorden</title>
+  </head>
+  <body class="font-sans text-gray-800">
+    <header class="bg-white shadow sticky top-0 z-50">
+      <nav class="max-w-5xl mx-auto flex items-center justify-between p-4">
+        <a href="/" class="text-xl font-bold">GordenKu</a>
+        <ul class="flex gap-4 text-sm font-medium">
+          <li><a href="/" class="hover:text-blue-600">Beranda</a></li>
+          <li><a href="/tentang" class="hover:text-blue-600">Tentang</a></li>
+          <li><a href="/layanan" class="hover:text-blue-600">Layanan</a></li>
+          <li><a href="/portofolio" class="hover:text-blue-600">Portofolio</a></li>
+          <li><a href="/kontak" class="hover:text-blue-600">Kontak</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+
+    <footer class="bg-gray-100 text-center text-sm text-gray-500 py-4">
+      &copy; {new Date().getFullYear()} GordenKu. All rights reserved.
+    </footer>
+  </body>
+</html>
