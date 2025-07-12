@@ -1,7 +1,15 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/home/Hero.astro';
+import Gallery from '../components/home/Gallery.astro';
+import Contact from '../components/home/Contact.astro';
 ---
-<Layout>
-  <h1 class="text-3xl font-bold mb-4">Selamat Datang di GordenKu</h1>
-  <p>Kami menyediakan solusi gorden terbaik untuk rumah dan kantor Anda.</p>
+
+<Layout
+  description="Pusat penyedia gorden dan interior terpercaya."
+  title="Putri Interior Gorden"
+>
+  <Hero />
+  <Gallery />
+  <Contact />
 </Layout>

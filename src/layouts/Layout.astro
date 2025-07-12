@@ -1,33 +1,80 @@
 ---
-// Layout.astro
-import "../styles/global.css";
----
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Website Gorden</title>
-  </head>
-  <body class="font-sans text-gray-800">
-    <header class="bg-white shadow sticky top-0 z-50">
-      <nav class="max-w-5xl mx-auto flex items-center justify-between p-4">
-        <a href="/" class="text-xl font-bold">GordenKu</a>
-        <ul class="flex gap-4 text-sm font-medium">
-          <li><a href="/" class="hover:text-blue-600">Beranda</a></li>
-          <li><a href="/tentang" class="hover:text-blue-600">Tentang</a></li>
-          <li><a href="/layanan" class="hover:text-blue-600">Layanan</a></li>
-          <li><a href="/portofolio" class="hover:text-blue-600">Portofolio</a></li>
-          <li><a href="/kontak" class="hover:text-blue-600">Kontak</a></li>
-        </ul>
-      </nav>
-    </header>
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-700.css';
+import { ViewTransitions } from 'astro:transitions';
+import Footer from '../components/layout/Footer.astro';
+import Header from '../components/layout/Header.astro';
 
-    <main class="max-w-5xl mx-auto px-4 py-8">
+interface Props {
+  description: string;
+  title: string;
+}
+
+const { description, title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="id" x-data x-cloak :class="{ 'dark': $store.theme.isDark }">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Transisi -->
+    <ViewTransitions />
+    <!-- Alpine + Collapse (gunakan type="module") -->
+<script type="module">
+  import Alpine from 'https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/+esm';
+  import collapse from 'https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.13.0/+esm';
+
+  Alpine.plugin(collapse);
+
+  Alpine.store('theme', {
+    init() {
+      this.isDark = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme') === 'dark';
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return true;
+        }
+        return false;
+      })();
+    },
+    isDark: false,
+    toggle() {
+      this.isDark = !this.isDark;
+      localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+    },
+  });
+
+  window.Alpine = Alpine;
+  Alpine.start();
+</script>
+  </head>
+
+  <body class="bg-brand-dark text-white dark:bg-black dark:text-gray-200 antialiased transition">
+    <Header />
+    
+    <main class="min-h-screen">
       <slot />
     </main>
+    
+    <Footer />
 
-    <footer class="bg-gray-100 text-center text-sm text-gray-500 py-4">
-      &copy; {new Date().getFullYear()} GordenKu. All rights reserved.
-    </footer>
+    <style is:global>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
   </body>
 </html>

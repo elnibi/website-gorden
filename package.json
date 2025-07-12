@@ -9,6 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@alpinejs/collapse": "^3.14.9",
+    "@fontsource/inter": "^5.2.6",
+    "alpinejs": "^3.14.9",
     "astro": "^5.11.0"
   },
   "devDependencies": {
